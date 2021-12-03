@@ -18,27 +18,27 @@ def get_key(data, op_mode):
         return '0'
     return '1'
 
-def filter(data, op_mode):
+def data_filter(data, op_mode, index=0):
     key = get_key(data, op_mode)
     new_data = []
     for line in data:
-        if line.startswith(key):
-            # print(key)
-            # print(line)
+        if line[index] == key:
             new_data.append(line)
-            # print(new_data)
-            # if len(new_data) > 5:
-                # break
     if len(new_data) == 1:
-        return int(new_data[0], 2)
-    filter(new_data, op_mode)
+        print(f"Returning {new_data}")
+        final = int(new_data[0], 2)
+        print(f"Final data to return: {final}")
+        return final
+    index += 1
+    print(f"Data after run {index}: {new_data}")
+    data_filter(new_data, op_mode, index)
 
 def main():
     with open("day3_input.txt", "r") as f:
         data = f.read().splitlines()
 
-    o2 = filter(data, "o2")
-    co2 = filter(data, "co2")
+    o2 = data_filter(data, "o2")
+    co2 = data_filter(data, "co2")
     print(f"Final values - O2: {o2}; CO2: {co2}; Life Support: {o2*co2}")
 
 main()
