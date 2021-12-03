@@ -25,13 +25,11 @@ def data_filter(data, op_mode, index=0):
         if line[index] == key:
             new_data.append(line)
     if len(new_data) == 1:
-        print(f"Returning {new_data}")
-        final = int(new_data[0], 2)
-        print(f"Final data to return: {final}")
-        return final
+        return int(new_data[0], 2)
     index += 1
-    print(f"Data after run {index}: {new_data}")
-    data_filter(new_data, op_mode, index)
+    final = data_filter(new_data, op_mode, index)
+    return final
+
 
 def main():
     with open("day3_input.txt", "r") as f:
