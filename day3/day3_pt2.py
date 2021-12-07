@@ -1,15 +1,11 @@
+def get_key(data, op_mode, index):
+    zero_bits, one_bits = 0,0
+    for line in data:
+        if line[index] == '0':
+            zero_bits += 1
+        else:
+            one_bits += 1
 
-def get_key(data, op_mode):
-    i = 0
-    while i < len(data[0]):
-        zero_bits, one_bits = 0,0
-        for line in data:
-            if line[i] == '0':
-                zero_bits += 1
-            else:
-                one_bits += 1
-        i += 1
-    print(f"Key counts - 0: {zero_bits}; 1: {one_bits}")
     if zero_bits > one_bits and op_mode == 'o2':
         return '0'
     if zero_bits < one_bits and op_mode == 'co2':
@@ -19,7 +15,7 @@ def get_key(data, op_mode):
     return '1'
 
 def data_filter(data, op_mode, index=0):
-    key = get_key(data, op_mode)
+    key = get_key(data, op_mode, index)
     new_data = []
     for line in data:
         if line[index] == key:
@@ -27,6 +23,7 @@ def data_filter(data, op_mode, index=0):
     if len(new_data) == 1:
         return int(new_data[0], 2)
     index += 1
+
     final = data_filter(new_data, op_mode, index)
     return final
 
